@@ -33,7 +33,7 @@ public class ModUtil {
         Minecraft c = ClientUtils.getClient();
         String newTextComponent = text;
 
-        DecimalFormat decimalFormat = new DecimalFormat(CoordinatesDisplay.CONFIG.get().shouldRoundWhenCopying ? "0.00" : "0");
+        DecimalFormat decimalFormat = new DecimalFormat(CoordinatesDisplay.CONFIG.get().shouldRoundWhenCopying ? "0" : "0.00");
 
         Vec3<Double> player = pos.position.getPlayerPos();
 
