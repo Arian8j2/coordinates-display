@@ -21,6 +21,7 @@ import org.apache.commons.lang3.SystemUtils;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 @SuppressWarnings("unchecked")
@@ -34,6 +35,7 @@ public class ModUtil {
         String newTextComponent = text;
 
         DecimalFormat decimalFormat = new DecimalFormat(CoordinatesDisplay.CONFIG.get().shouldRoundWhenCopying ? "0" : "0.00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
 
         Vec3<Double> player = pos.position.getPlayerPos();
 
