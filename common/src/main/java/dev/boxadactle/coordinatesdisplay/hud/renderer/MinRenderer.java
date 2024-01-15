@@ -12,6 +12,7 @@ import dev.boxadactle.coordinatesdisplay.position.Position;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class MinRenderer extends HudRenderer {
@@ -34,13 +35,17 @@ public class MinRenderer extends HudRenderer {
 
     @Override
     protected Rect<Integer> renderOverlay(GuiGraphics guiGraphics, int x, int y, Position pos) {
-        NumberFormatter<Double> formatter = new NumberFormatter<>(CoordinatesDisplay.CONFIG.get().decimalPlaces);
+        int decimalPlaces = CoordinatesDisplay.CONFIG.get().decimalPlaces;
+        DecimalFormat simpleFormatter = new DecimalFormat("#");
+        simpleFormatter.setRoundingMode(RoundingMode.DOWN);
+
+        NumberFormatter<Double> formatter = new NumberFormatter<>(decimalPlaces);
         Vec3<Double> player = pos.position.getPlayerPos();
 
         Component xtext = GuiUtils.colorize(translation(
                 "x",
                 GuiUtils.colorize(
-                        Component.literal(formatter.formatDecimal(player.getX())),
+                        Component.literal(decimalPlaces == 0 ? simpleFormatter.format(player.getX()) : formatter.formatDecimal(player.getX())),
                         config().dataColor
                 )
         ), config().definitionColor);
@@ -48,7 +53,7 @@ public class MinRenderer extends HudRenderer {
         Component ytext = GuiUtils.colorize(translation(
                 "y",
                 GuiUtils.colorize(
-                        Component.literal(formatter.formatDecimal(player.getY())),
+                        Component.literal(decimalPlaces == 0 ? simpleFormatter.format(player.getY()) : formatter.formatDecimal(player.getY())),
                         config().dataColor
                 )
         ), config().definitionColor);
@@ -56,7 +61,7 @@ public class MinRenderer extends HudRenderer {
         Component ztext = GuiUtils.colorize(translation(
                 "z",
                 GuiUtils.colorize(
-                        Component.literal(formatter.formatDecimal(player.getZ())),
+                        Component.literal(decimalPlaces == 0 ? simpleFormatter.format(player.getZ()) : formatter.formatDecimal(player.getZ())),
                         config().dataColor
                 )
         ), config().definitionColor);
