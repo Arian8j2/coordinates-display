@@ -44,7 +44,7 @@ public class Keybinds {
         }
 
         if (sendLocation.consumeClick()) {
-            CoordinatesDisplay.LOGGER.player.info(ModUtil.parseText(CoordinatesDisplay.CONFIG.get().posChatMessage, pos));
+            CoordinatesDisplay.LOGGER.player.publicChat(ModUtil.parseText(CoordinatesDisplay.CONFIG.get().posChatMessage, pos));
             CoordinatesDisplay.LOGGER.info("Sent position as chat message");
         }
 
