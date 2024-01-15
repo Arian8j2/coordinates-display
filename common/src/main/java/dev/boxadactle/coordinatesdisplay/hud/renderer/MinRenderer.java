@@ -78,13 +78,12 @@ public class MinRenderer extends HudRenderer {
         int tp = CoordinatesDisplay.CONFIG.get().textPadding;
 
         double yaw = pos.headRot.wrapYaw();
-        double pitch = pos.headRot.wrapPitch();
         Component direction = translation(ModUtil.getDirectionFromYaw(yaw));
-        Component pitchComponent = Component.literal(pitch > 0 ? "+" : "-");
         Component directionComponent = Component.translatable("hud.coordinatesdisplay.min." + ModUtil.getDirectionFromYaw(yaw), direction);
-        Component yawComponent = Component.literal(yaw > 0 ? "+" : "-");
 
-
+        String[] xzComponent = ModUtil.getXZComponentFromYaw(yaw);
+        Component xComponent = Component.literal(xzComponent[0]);
+        Component zComponent = Component.literal(xzComponent[1]);
 
         int w = calculateWidth(p, th, tp, xtext, ytext, ztext, biome);
         int h = calculateHeight(p, th);
@@ -101,11 +100,11 @@ public class MinRenderer extends HudRenderer {
         drawInfo(guiGraphics, biome, x + p, y + p + (th * 3), CoordinatesDisplay.CONFIG.get().definitionColor);
         {
             int dstart = (x + w) - p - GuiUtils.getTextRenderer().width(directionComponent);
-            int ypstart = (x + w) - p - GuiUtils.getTextRenderer().width(yawComponent);
+            int ypstart = (x + w) - p - GuiUtils.getTextRenderer().width("+");
 
-            drawInfo(guiGraphics, pitchComponent, ypstart, y + p, CoordinatesDisplay.CONFIG.get().definitionColor);
+            drawInfo(guiGraphics, xComponent, ypstart, y + p, CoordinatesDisplay.CONFIG.get().definitionColor);
             drawInfo(guiGraphics, directionComponent, dstart, y + p + th, CoordinatesDisplay.CONFIG.get().dataColor);
-            drawInfo(guiGraphics, yawComponent, ypstart, y + p + (th * 2), CoordinatesDisplay.CONFIG.get().definitionColor);
+            drawInfo(guiGraphics, zComponent, ypstart, y + p + (th * 2), CoordinatesDisplay.CONFIG.get().definitionColor);
         }
 
         return new Rect<>(x, y, w, h);

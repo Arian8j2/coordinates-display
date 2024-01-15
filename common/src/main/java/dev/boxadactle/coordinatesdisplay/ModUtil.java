@@ -221,6 +221,29 @@ public class ModUtil {
         return direction;
     }
 
+    // returns an array that first element is X axis component and second element is Z axis component
+    public static String[] getXZComponentFromYaw(double degrees) {
+        String[] direction;
+        String[][] directions = {
+            {" ", "+"}, // south
+            {"-", "+"}, // southwest
+            {"-", " "}, // west
+            {"-", "-"}, // northwest
+            {" ", "-"}, // north
+            {"+", "-"}, // northeast
+            {"+", " "}, // east
+            {"+", "+"}, // southeast
+            {" ", "+"}  // south
+        };
+        if (degrees > 0)
+            direction = directions[(int)Math.round(degrees / 45)];
+        else {
+            int index = (int)Math.round(degrees / 45) * -1;
+            direction = directions[8 - index];
+        }
+        return direction;
+    }
+
     // copy + pasted from DebugHud.class
     public static String printBiome(Holder<Biome> p_205375_) {
         if (p_205375_ != null) {
